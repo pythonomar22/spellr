@@ -11,7 +11,7 @@ def parse_words_from_file(file_path):
                 words.append(word)
     return words
 
-def find_phonetically_similar_words(target_word, word_list, threshold=0.6, top_n=None):
+def find_phonetically_similar_words(target_word, word_list, threshold=0.1, top_n=None):
     phonetic_target = doublemetaphone(target_word)[0]  # Use the primary code
     similar_words = []
     for word in word_list:
@@ -36,18 +36,40 @@ def calculate_similarity(code1, code2):
     else:
         return intersection / union
 
-def main(target_word, top_n=None):
+def find_common_phonetic_patterns(target_words, word_list, threshold=0.8):
+    phonetic_codes = [doublemetaphone(word)[0] for word in target_words]
+    phonetic_code_counter = Counter(phonetic_codes)
+    common_patterns = [code for code, count in phonetic_code_counter.items() if count >= threshold * len(target_words)]
+    return common_patterns
+
+def recommend_words(target_words, word_list, top_n=None):
+    recommended_words = []
+    common_patterns = find_common_phonetic_patterns(target_words, word_list)
+
+    for target_word in target_words:
+        similar_words = find_phonetically_similar_words(target_word, word_list)
+        for word, score in similar_words:
+            phonetic_code = doublemetaphone(word)[0]
+            if phonetic_code in common_patterns:
+                recommended_words.append((word, score))
+
+    recommended_words.sort(key=lambda x: x[1], reverse=True)
+    if top_n:
+        recommended_words = recommended_words[:top_n]
+    return recommended_words
+
+def main(target_words, top_n=None):
     # Replace with the path to your word list file
     file_path = '/home/omar/Downloads/words.txt'
     word_list = parse_words_from_file(file_path)
-    similar_words = find_phonetically_similar_words(target_word, word_list, threshold=0.95, top_n=top_n)
-    return similar_words
+    recommended_words = recommend_words(target_words, word_list, top_n)
+    return recommended_words
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
-        print("Please provide a target word as an argument.")
+        print("Please provide target words as arguments.")
     else:
-        target_word = sys.argv[1]
-        top_n = int(sys.argv[2]) if len(sys.argv) > 2 else None
-        similar_words = main(target_word, top_n)
-        print(similar_words)
+        target_words = sys.argv[1:]
+        top_n = 10  # You can adjust this value as needed
+        recommended_words = main(target_words, top_n)
+        print(recommended_words)
