@@ -1,0 +1,48 @@
+@import './fonts.css';
+
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  background-color: #292929;
+  color: #fff;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.header {
+  background-color: #3c3c3c;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+}
+
+nav button {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+nav button.active {
+  background-color: #5c5c5c;
+  border-radius: 4px;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
