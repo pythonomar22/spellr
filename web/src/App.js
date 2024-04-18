@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Home from './Home';
-import Game from './Game';
+import Tracker from './Tracker';
 import './App.css';
 
 
@@ -11,8 +11,8 @@ const App = () => {
     switch (currentPage) {
       case 'home':
         return <Home />;
-      case 'game':
-        return <Game />;
+      case 'Tracker':
+        return <Tracker />;
       default:
         return <Home />;
     }
@@ -29,10 +29,10 @@ const App = () => {
             Home
           </button>
           <button
-            className={currentPage === 'game' ? 'active' : ''}
-            onClick={() => setCurrentPage('game')}
+            className={currentPage === 'Tracker' ? 'active' : ''}
+            onClick={() => setCurrentPage('Tracker')}
           >
-            Game
+            Tracker
           </button>
         </nav>
       </header>

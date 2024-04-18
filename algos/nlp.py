@@ -2,6 +2,7 @@ import nltk
 from nltk.corpus import cmudict
 from nltk.metrics.distance import edit_distance
 import sys
+import json
 
 # Download the CMU Pronouncing Dictionary
 nltk.download('cmudict')
@@ -26,10 +27,8 @@ def get_pronunciation(word):
 
 def phonetic_similarity(word1, word2):
     pron1 = get_pronunciation(word1)
-    #print(pron1)
     pron2 = get_pronunciation(word2)
-    #print(pron2)
-    
+
     if pron1 and pron2:
         distance = edit_distance(pron1, pron2)
         max_length = max(len(pron1), len(pron2))
@@ -40,18 +39,18 @@ def phonetic_similarity(word1, word2):
 
 def find_phonetically_similar_words(target_words, word_list, threshold=0.6, top_n=None):
     similar_words = []
-    
+
     for target_word in target_words:
         for word in word_list:
             if not any(word.startswith(tw) for tw in target_words):
                 similarity = phonetic_similarity(target_word, word)
                 if similarity >= threshold:
                     similar_words.append((word, similarity))
-    
+
     similar_words.sort(key=lambda x: x[1], reverse=True)
     if top_n:
         similar_words = similar_words[:top_n]
-    
+
     return similar_words
 
 def main(target_words, top_n=None):
@@ -68,4 +67,4 @@ if __name__ == '__main__':
         target_words = sys.argv[1:]
         top_n = 10  # You can adjust this value as needed
         similar_words = main(target_words, top_n)
-        print(similar_words)
+        print(json.dumps(similar_words))
