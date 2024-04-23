@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import Home from './Home';
 import Tracker from './Tracker';
 import './App.css';
-
+import WordWrapper from './WordWrapper';
+import Checkin from './Checkin';
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState('home');
@@ -11,8 +12,10 @@ const App = () => {
     switch (currentPage) {
       case 'home':
         return <Home />;
-      case 'Tracker':
+      case 'tracker':
         return <Tracker />;
+      case 'checkin':
+        return <Checkin />;
       default:
         return <Home />;
     }
@@ -26,13 +29,19 @@ const App = () => {
             className={currentPage === 'home' ? 'active' : ''}
             onClick={() => setCurrentPage('home')}
           >
-            Home
+            <WordWrapper word="Home">Home</WordWrapper>
           </button>
           <button
-            className={currentPage === 'Tracker' ? 'active' : ''}
-            onClick={() => setCurrentPage('Tracker')}
+            className={currentPage === 'tracker' ? 'active' : ''}
+            onClick={() => setCurrentPage('tracker')}
           >
-            Tracker
+            <WordWrapper word="Tracker">Tracker</WordWrapper>
+          </button>
+          <button
+            className={currentPage === 'checkin' ? 'active' : ''}
+            onClick={() => setCurrentPage('checkin')}
+          >
+            <WordWrapper word="Check-in">Check-in</WordWrapper>
           </button>
         </nav>
       </header>

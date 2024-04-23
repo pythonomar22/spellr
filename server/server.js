@@ -24,6 +24,25 @@ app.get('/similar-words', (req, res) => {
   });
 });
 
+app.get('/phonemic-breakdown', (req, res) => {
+    const word = req.query.word;
+  
+    const pythonProcess = spawn('python', ['../algos/phonemic_breakdown.py', word]);
+    let result = '';
+  
+    pythonProcess.stdout.on('data', (data) => {
+      result += data.toString();
+    });
+  
+    pythonProcess.stderr.on('data', (data) => {
+      console.error(`stderr: ${data}`);
+    });
+  
+    pythonProcess.on('close', (code) => {
+      res.json(result.trim());
+    });
+  });
+
 const port = 5000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

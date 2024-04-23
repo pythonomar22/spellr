@@ -1,6 +1,8 @@
+// Tracker.js
 import React, { useState, useEffect } from 'react';
 import { ref, onValue } from 'firebase/database';
 import { database } from './firebase';
+import WordWrapper from './WordWrapper';
 
 const Tracker = () => {
   const [words, setWords] = useState([]);
@@ -29,17 +31,29 @@ const Tracker = () => {
 
   return (
     <div style={{ backgroundColor: '#2c2c2c', minHeight: '100vh', padding: '20px', color: 'white' }}>
-      <h1>Trackers</h1>
-      <h2>Words to practice:</h2>
+      <h1>
+        <WordWrapper word="Trackers">Trackers</WordWrapper>
+      </h1>
+      <h2>
+        <WordWrapper word="Words">Words</WordWrapper> <WordWrapper word="to">to</WordWrapper> <WordWrapper word="practice">practice</WordWrapper>:
+      </h2>
       <ul>
         {words.map((word, index) => (
-          <li key={index}>{word}</li>
+          <li key={index}>
+            <WordWrapper word={word}>{word}</WordWrapper>
+          </li>
         ))}
       </ul>
-      <h2>Phonetically similar words:</h2>
+      <h2>
+        <WordWrapper word="Phonetically">Phonetically</WordWrapper> <WordWrapper word="similar">similar</WordWrapper> <WordWrapper word="words">words</WordWrapper>:
+      </h2>
       <ul>
         {similarWords.map((word, index) => (
-          <li key={index}>{word[0]} (Similarity: {word[1]})</li>
+          <li key={index}>
+            <WordWrapper word={word[0]}>
+              {word[0]} (<WordWrapper word="Similarity">Similarity</WordWrapper>: {word[1]})
+            </WordWrapper>
+          </li>
         ))}
       </ul>
     </div>
