@@ -1,8 +1,10 @@
 // spellr/web/src/Reading.js
 import React, { useState, useEffect } from 'react';
+import './Reading.css';
 
 const Reading = () => {
   const [books, setBooks] = useState([]);
+  const [selectedWord, setSelectedWord] = useState(null);
 
   useEffect(() => {
     const fetchDecodableBooks = async () => {
@@ -14,18 +16,33 @@ const Reading = () => {
     fetchDecodableBooks();
   }, []);
 
+  const handleWordClick = (word) => {
+    setSelectedWord(word);
+  };
+
   return (
     <div className="reading">
       <h1>Reading Page</h1>
-      {books.map((book, index) => (
-        <div key={index}>
-          <ul>
-            {book.sentences.map((sentence, index) => (
-              <li key={index}>{sentence}</li>
+      <div className="word-boxes">
+        {books.map((book, index) => (
+          <div
+            key={index}
+            className={`word-box ${selectedWord === book.word ? 'selected' : ''}`}
+            onClick={() => handleWordClick(book.word)}
+          >
+            {book.word.toUpperCase()}
+          </div>
+        ))}
+      </div>
+      {selectedWord && (
+        <div className="sentences">
+          {books
+            .find((book) => book.word === selectedWord)
+            .sentences.map((sentence, index) => (
+              <p key={index}>{sentence}</p>
             ))}
-          </ul>
         </div>
-      ))}
+      )}
     </div>
   );
 };
