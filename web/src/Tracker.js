@@ -32,29 +32,41 @@ const Tracker = () => {
   return (
     <div style={{ backgroundColor: '#2c2c2c', minHeight: '100vh', padding: '20px', color: 'white' }}>
       <h1>
-        <WordWrapper word="Trackers">Trackers</WordWrapper>
+        <WordWrapper word="Trackers"></WordWrapper>
       </h1>
       <h2>
-        <WordWrapper word="Words">Words</WordWrapper> <WordWrapper word="to">to</WordWrapper> <WordWrapper word="practice">practice</WordWrapper>:
+        <WordWrapper word="Words">Commonly</WordWrapper> <WordWrapper word="to">missed</WordWrapper> <WordWrapper word="practice">words</WordWrapper>:
       </h2>
-      <ul>
-        {words.map((word, index) => (
-          <li key={index}>
-            <WordWrapper word={word}>{word}</WordWrapper>
-          </li>
-        ))}
+            <ul style={{ display: 'flex', listStyle: 'none', padding: 0 }}>
+        <li style={{ marginRight: '20px' }}>
+          <WordWrapper word="pure">adventure</WordWrapper>
+        </li>
+        <li style={{ marginRight: '20px' }}>
+          <WordWrapper word="mature">treasure</WordWrapper>
+        </li>
+        <li style={{ marginRight: '20px' }}>
+          <WordWrapper word="ensure">closure</WordWrapper>
+        </li>
+        <li>
+          <WordWrapper word="procedure">future</WordWrapper>
+        </li>
       </ul>
       <h2>
-        <WordWrapper word="Phonetically">Phonetically</WordWrapper> <WordWrapper word="similar">similar</WordWrapper> <WordWrapper word="words">words</WordWrapper>:
+        <WordWrapper word="Phonetically">Words</WordWrapper> <WordWrapper word="similar">to</WordWrapper> <WordWrapper word="words">practice</WordWrapper>:
       </h2>
-      <ul>
-        {similarWords.map((word, index) => (
-          <li key={index}>
-            <WordWrapper word={word[0]}>
-              {word[0]} (<WordWrapper word="Similarity">Similarity</WordWrapper>: {word[1]})
-            </WordWrapper>
-          </li>
-        ))}
+      <ul style={{ display: 'flex', listStyle: 'none', padding: 0 }}>
+        <li style={{ marginRight: '20px' }}>
+          <WordWrapper word="pure">pure</WordWrapper>
+        </li>
+        <li style={{ marginRight: '20px' }}>
+          <WordWrapper word="mature">mature</WordWrapper>
+        </li>
+        <li style={{ marginRight: '20px' }}>
+          <WordWrapper word="ensure">ensure</WordWrapper>
+        </li>
+        <li>
+          <WordWrapper word="procedure">procedure</WordWrapper>
+        </li>
       </ul>
     </div>
   );

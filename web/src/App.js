@@ -4,6 +4,7 @@ import Tracker from './Tracker';
 import './App.css';
 import WordWrapper from './WordWrapper';
 import Checkin from './Checkin';
+import Reading from './Reading'; // Add this import
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState('home');
@@ -16,6 +17,8 @@ const App = () => {
         return <Tracker />;
       case 'checkin':
         return <Checkin />;
+      case 'reading': // Add this case
+        return <Reading />;
       default:
         return <Home />;
     }
@@ -42,6 +45,12 @@ const App = () => {
             onClick={() => setCurrentPage('checkin')}
           >
             <WordWrapper word="Check-in">Check-in</WordWrapper>
+          </button>
+          <button // Add this button
+            className={currentPage === 'reading' ? 'active' : ''}
+            onClick={() => setCurrentPage('reading')}
+          >
+            <WordWrapper word="Reading">Reading</WordWrapper>
           </button>
         </nav>
       </header>
