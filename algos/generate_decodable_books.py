@@ -16,7 +16,7 @@ import sys
 import json
 
 
-os.environ["OPENAI_API_KEY"] = "sk-proj-YczTuuw7WXlkC8U7EtRJT3BlbkFJ6xe7HyyF8loAb4KebTZJ"
+os.environ["OPENAI_API_KEY"] = "INSERT"
 client = OpenAI()
 
 def generate_decodable_books(words):
