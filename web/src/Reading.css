@@ -1,25 +1,29 @@
 /* spellr/web/src/Reading.css */
 .word-boxes {
     display: flex;
-    justify-content: center;
-    gap: 20px;
+    justify-content: space-between;
     margin-bottom: 20px;
+    width: 100%; /* Ensure the boxes span the whole page */
   }
   
   .word-box {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100px;
+    flex: 1;
     height: 100px;
-    background-color: #f2f2f2;
+    background-color: #fff;
     border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    margin: 0 10px;
+    color: #000;
+    font-size: 24px;
+    font-weight: bold;
   }
   
   .word-box:hover {
-    background-color: #e0e0e0;
+    background-color: #f2f2f2;
   }
   
   .word-box.selected {
@@ -29,3 +33,4 @@
   .sentences {
     margin-top: 20px;
   }
+  

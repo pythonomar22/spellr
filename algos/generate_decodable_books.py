@@ -15,8 +15,13 @@ from guardrails.hub import (
 import sys
 import json
 
+# Check if the API key is set in the environment variable
+if "OPENAI_API_KEY" not in os.environ:
+    print("Error: Please set the OPENAI_API_KEY environment variable.")
+    sys.exit(1)
 
-os.environ["OPENAI_API_KEY"] = "INSERT"
+# Initialize OpenAI client with the API key from the environment variable
+api_key = os.environ["OPENAI_API_KEY"]
 client = OpenAI()
 
 def generate_decodable_books(words):

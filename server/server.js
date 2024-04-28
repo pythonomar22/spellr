@@ -4,7 +4,8 @@ const { spawn } = require('child_process');
 const app = express();
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 app.get('/similar-words', (req, res) => {
   const targetWords = req.query.words.split(',');
@@ -76,6 +77,34 @@ app.get('/decodable-books', (req, res) => {
 
   pythonProcess.on('close', (code) => {
     res.json(JSON.parse(result));
+  });
+});
+
+app.post('/mispronunciation-detection', (req, res) => {
+  const { sentence, audio } = req.body;
+  console.log("Received sentence:", sentence);
+  console.log("Received audio data:", audio);
+
+  // Decode the base64 audio data
+  const audioBuffer = Buffer.from(audio, "base64");
+
+  // Pass the audio data and recording duration to the Python script
+  const pythonProcess = spawn("python", ["../algos/mispronounce.py", sentence, "5"]);
+  pythonProcess.stdin.write(audioBuffer);
+  pythonProcess.stdin.end();
+
+  let result = '';
+
+  pythonProcess.stdout.on('data', (data) => {
+    result += data.toString();
+  });
+
+  pythonProcess.stderr.on('data', (data) => {
+    console.error(`stderr: ${data}`);
+  });
+
+  pythonProcess.on('close', (code) => {
+    res.json({ result: result.trim() });
   });
 });
 
